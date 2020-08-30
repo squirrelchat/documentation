@@ -61,13 +61,13 @@ const App = () => {
 
         <meta name='theme-color' content='#ff7b1c'/>
         <meta name='revisit-after' content='2 days'/>
-        <link rel='canonical' href={`https://squirrel.chat/developers/${pathname}`}/>
+        <link rel='canonical' href={`https://squirrel.chat/developers${pathname}`}/>
         <meta name='description' content='Next-gen, open-source and enterprise-ready chat platform'/>
 
         <meta property='og:locale' content='en_US'/>
         <meta property='og:title' content='Squirrel Chat'/>
         <meta property='og:site_name' content='Squirrel Chat'/>
-        <meta property='og:url' content={`https://squirrel.chat/developers/${pathname}`}/>
+        <meta property='og:url' content={`https://squirrel.chat/developers${pathname}`}/>
         <meta property='og:image' content={require('@assets/squirrel.png').default}/>
         <meta property='og:description' content='Next-gen, open-source and enterprise-ready chat platform'/>
 
