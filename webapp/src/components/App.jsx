@@ -65,8 +65,8 @@ const App = () => {
         <meta name='description' content={'All of Squirrel Chat\'s developer documentation in one place, for developers to put together amazing apps and tools making use of our APIs.'}/>
 
         <meta property='og:locale' content='en_US'/>
-        <meta property='og:title' content='Squirrel Developer Documentation'/>
-        <meta property='og:site_name' content='Squirrel Developer Documentation'/>
+        <meta property='og:title' content='Squirrel Developer Docs'/>
+        <meta property='og:site_name' content='Squirrel Chat'/>
         <meta property='og:url' content={`https://squirrel.chat/developers${pathname}`}/>
         <meta property='og:image' content={require('@assets/squirrel.png').default}/>
         <meta property='og:description' content={'All of Squirrel Chat\'s developer documentation in one place, for developers to put together amazing apps and tools making use of our APIs.'}/>
