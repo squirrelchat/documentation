@@ -1,0 +1,15 @@
+# Editors
+.vscode
+.idea
+*.iml
+
+# Project
+node_modules
+*.log
+dist
+*.nogit.*
+
+# Malware :^)
+/.settings/
+.project
+.classpath
