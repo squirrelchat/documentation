@@ -270,7 +270,6 @@ module.exports = function (content) {
         })
     )).filter(Boolean)
 
-    console.log(tree)
     code += `${treeToCode(tree)}); Document.displayName = "MarkdownDocument(${title.replace(/ ./g, s => s.substring(1).toUpperCase())})";`
     code += `module.exports = { __esModule: true, default: React.memo(Document), title: "${title}" }`
     callback(null, code)

@@ -243,7 +243,7 @@ if (isDev) {
       minimize: false
     },
     target: 'node',
-    externals: [ require('webpack-node-externals')() ],
+    externals: [ require('webpack-node-externals')({ allowlist: [ 'object-assign' ] }) ],
     node: {
       __dirname: false,
       __filename: false
