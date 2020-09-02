@@ -50,7 +50,7 @@ require('http')
     // noinspection JSFileReferences
     const App = require('./dist/App').default
     const rendered = React.createElement(
-      StaticRouter, { location: req.url, context }, React.createElement(App, { server: true })
+      StaticRouter, { location: req.url, basename: '/developers', context }, React.createElement(App, { server: true })
     )
 
     if (context.url) {

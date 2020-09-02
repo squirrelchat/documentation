@@ -25,7 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-const { resolve } = require('path')
+const { join } = require('path')
 const { existsSync, readdirSync, unlinkSync } = require('fs')
 const TerserJSPlugin = require('terser-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
@@ -40,23 +40,23 @@ const commitHash = null
 try { require('child_process').execSync('git rev-parse HEAD').toString().trim() } catch (e) {}
 
 const isDev = process.env.NODE_ENV === 'development'
-const src = resolve(__dirname, 'src')
+const src = join(__dirname, 'src')
 
 const baseConfig = {
   mode: isDev ? 'development' : 'production',
-  entry: resolve(src, 'main.jsx'),
+  entry: join(src, 'main.jsx'),
   output: {
     filename: isDev ? '[name].js' : '[contenthash].js',
     chunkFilename: isDev ? '[name].chk.js' : '[contenthash].js',
-    path: resolve(__dirname, 'dist'),
+    path: join(__dirname, 'dist'),
     publicPath: '/dist/'
   },
   resolve: {
     extensions: [ '.js', '.jsx' ],
     alias: {
-      '@components': resolve(__dirname, 'src', 'components'),
-      '@styles': resolve(__dirname, 'src', 'styles'),
-      '@assets': resolve(__dirname, 'src', 'assets')
+      '@components': join(__dirname, 'src', 'components'),
+      '@styles': join(__dirname, 'src', 'styles'),
+      '@assets': join(__dirname, 'src', 'assets')
     }
   },
   module: {
@@ -145,13 +145,17 @@ const baseConfig = {
             }
           }
         ]
+      },
+      {
+        test: /\.md$/,
+        use: join(__dirname, 'src/markdown-loader.js')
       }
     ]
   },
   plugins: [
     new ManifestPlugin({
       writeToFileEmit: true,
-      fileName: resolve(__dirname, 'http', 'dist', 'manifest.json')
+      fileName: join(__dirname, 'http', 'dist', 'manifest.json')
     }),
     new MiniCSSExtractPlugin({
       filename: isDev ? '[name].css' : '[contenthash].css',
@@ -212,7 +216,7 @@ if (isDev) {
         if (existsSync(compiler.options.output.path)) {
           for (const filename of readdirSync(compiler.options.output.path)) {
             if (filename !== 'manifest.json') {
-              unlinkSync(resolve(compiler.options.output.path, filename))
+              unlinkSync(join(compiler.options.output.path, filename))
             }
           }
         }
@@ -221,12 +225,12 @@ if (isDev) {
 
   const nodeCfg = {
     ...baseConfig,
-    entry: resolve(src, 'components', 'App.jsx'),
+    entry: join(src, 'components', 'App.jsx'),
     output: {
       filename: 'App.js',
       chunkFilename: '[name].chk.js',
       libraryTarget: 'commonjs2',
-      path: resolve(__dirname, 'http', 'dist'),
+      path: join(__dirname, 'http', 'dist'),
       publicPath: '/dist/'
     },
     plugins: [

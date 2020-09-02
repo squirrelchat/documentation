@@ -1,0 +1,213 @@
+/*!
+ * Copyright (c) 2020 Squirrel Chat, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+@import './vars';
+
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.paragraph {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.heading, .block-header {
+  display: flex;
+  align-items: center;
+  margin: 0;
+
+  &:hover .anchor {
+    display: flex;
+  }
+}
+
+.heading {
+  margin-bottom: 24px;
+}
+
+.block-header {
+  font-size: 16px;
+  font-weight: 600;
+  background-color: $dark-highlight;
+  padding: 8px 16px;
+}
+
+.anchor {
+  color: inherit;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  display: none;
+
+  &:hover {
+    color: $text-white;
+    text-decoration: none;
+  }
+}
+
+.inline-code {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: $dark-primary;
+  padding: 2px 4px;
+  font-size: 14px;
+}
+
+.http-route {
+  color: $text-white;
+  font-size: 18px;
+  margin-bottom: 16px;
+
+  .method {
+    color: $blue;
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .param {
+    color: $green;
+  }
+}
+
+.quote {
+  margin: 0 0 24px 16px;
+  position: relative;
+  white-space: pre-wrap; 
+
+  &::before {
+    content: '';
+    background-color: $dark-primary;
+    border-radius: 2px;
+    height: 100%;
+    left: -16px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 4px;
+  }
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: $dark-primary;
+  margin-bottom: 24px;
+
+  .icon {
+    margin-right: 16px;
+  }
+
+  &.note-info .icon {
+    color: $blue;
+  }
+
+  &.note-warning .icon {
+    color: $yellow;
+  }
+
+  &.note-danger .icon {
+    color: $red;
+  }
+}
+
+.table {
+  margin-bottom: 15px;
+  border-collapse: collapse;
+  width: 100%;
+
+  thead {
+    background-color: $dark-primary;
+  }
+
+  tbody tr {
+    background-color: darken($dark-secondary, 3);
+
+    &:nth-child(2n) {
+      background-color: darken($dark-secondary, 1);
+    }
+  }
+
+  th {
+    text-align: left;
+    border: 1px $dark-highlight solid;
+    font-size: 13px;
+    opacity: .8;
+    padding: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  td {
+    @extend th;
+    opacity: 1;
+    text-transform: none;
+  }
+
+  .center {
+    text-align: center;
+  }
+}
+
+.code {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: $dark-primary;
+  font-size: 14px;
+  padding: 8px 16px;
+  margin-top: 0;
+  margin-bottom: 32px;
+
+  code {
+    font: inherit;
+  }
+
+  .line {
+    display: flex;
+  }
+
+  .line-number {
+    width: 26px;
+    border-right: 1px solid $dark-highlight;
+    margin-right: 12px;
+    flex-shrink: 0;
+    user-select: none;
+
+    + div {
+      max-width: calc(100% - 36px);
+      display: flex;
+      flex-wrap: wrap;
+      white-space: pre-wrap;
+
+      span {
+        max-width: 100%;
+        display: inline-block;
+        white-space: pre-wrap;
+      }
+    }
+  }
+}

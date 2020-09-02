@@ -12,13 +12,15 @@ The docs are currently heavy WIP. For the meantime, we will not accept any issue
 
 ## Formatting
 The documentation is written in markdown to make it easy to edit for everyone and to use as standalone documents.
-However to make rendering the web version easier the documents uses special markdown syntax.
+However to make rendering the web version easier the documents uses special markdown syntax. This syntax is made to
+not affect people reading the markdown file while still being easy to process.
 
 ### Linking
 TBD
 
 ### HTTP Route
-TBD
+HTTP routes should be prefixed with `%%`, then followed by their method in all uppercase, and then the path excluding
+API base path. Route parameters must be wrapped in curly brackets.
 
 ### Alert Boxes
 Alert boxes are achieved by using a block quote that has one of 'info', 'warn' or 'danger' on the first line.

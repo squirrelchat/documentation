@@ -32,6 +32,8 @@ import { useLocation } from 'react-router'
 import Sidebar from './Sidebar'
 import Router from './Router'
 
+import { BASE_URL } from '../constants'
+
 import style from '@styles/main.scss'
 
 const App = () => {
@@ -61,13 +63,13 @@ const App = () => {
 
         <meta name='theme-color' content='#ff7b1c'/>
         <meta name='revisit-after' content='2 days'/>
-        <link rel='canonical' href={`https://squirrel.chat/developers${pathname}`}/>
+        <link rel='canonical' href={`${BASE_URL}${pathname}`}/>
         <meta name='description' content={'All of Squirrel Chat\'s developer documentation in one place, for developers to put together amazing apps and tools making use of our APIs.'}/>
 
         <meta property='og:locale' content='en_US'/>
         <meta property='og:title' content='Squirrel Developer Docs'/>
         <meta property='og:site_name' content='Squirrel Chat'/>
-        <meta property='og:url' content={`https://squirrel.chat/developers${pathname}`}/>
+        <meta property='og:url' content={`${BASE_URL}${pathname}`}/>
         <meta property='og:image' content={require('@assets/squirrel.png').default}/>
         <meta property='og:description' content={'All of Squirrel Chat\'s developer documentation in one place, for developers to put together amazing apps and tools making use of our APIs.'}/>
 

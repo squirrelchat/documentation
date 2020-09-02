@@ -26,23 +26,60 @@
  */
 
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
-import { Logo } from './Icons'
+import { Logo, Atom, Api } from './Icons'
 
 import style from '@styles/sidebar.scss'
 
-const Router = () => {
+const Sidebar = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
         <Link to='/' className={style.logo} aria-label='Squirrel Chat'>
           <Logo/>
         </Link>
+        <div className={style.contents}>
+          <div className={style.sectionTitle}>
+            <Atom width={32} height={32}/>
+            <span>Getting started</span>
+          </div>
+          <NavLink to='/' activeClassName={style.active} className={style.sectionItem}>Section Item 1</NavLink>
+          <div className={style.sectionItem}>
+            <span>Section Item 2</span>
+          </div>
+          <div className={style.sectionItem}>
+            <span>Section Item 3</span>
+          </div>
+          <div className={style.sectionTitle}>
+            <Api width={32} height={32}/>
+            <span>REST API</span>
+          </div>
+          <div className={style.sectionItem}>
+            <span>Section Item 1</span>
+          </div>
+          <div className={style.sectionItem}>
+            <span>Section Item 2</span>
+          </div>
+          <div className={style.sectionItem}>
+            <span>Section Item 3</span>
+          </div>
+        </div>
+        <div className={style.footer}>
+          <div>
+            Copyright &copy; {new Date().getFullYear()} Squirrel Chat
+          </div>
+          <div>
+            <a href='/'>Website</a>
+            <a rel='noreferrer' target='_blank' href='https://github.com/squirrelchat/documentation'>GitHub</a>
+            <a rel='noreferrer' target='_blank' href='https://discord.gg/qAPpZDr'>Discord</a>
+            <a href='/legal'>Legal Notice</a>
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
-Router.displayName = 'Router'
-export default React.memo(Router)
+Sidebar.displayName = 'Sidebar'
+export default React.memo(Sidebar)

@@ -27,11 +27,11 @@
 
 import React from 'react'
 
-import '@styles/main.scss'
+import TestDocument from '../../../docs/test.md'
 
 const Router = () => {
   return (
-    <h1>Henlo</h1>
+    <TestDocument/>
   )
 }
 

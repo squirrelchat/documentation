@@ -25,24 +25,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { BASE_PATH } from './constants'
-
-import('./components/App' /* webpackChunkName: "app" */).then(mdl => {
-  const App = mdl.default
-  if (process.env.NODE_ENV === 'production') {
-    ReactDOM.hydrate(
-      <Router basename={BASE_PATH}>
-        <App/>
-      </Router>, document.querySelector('#react-root')
-    )
-  } else {
-    ReactDOM.render(
-      <Router>
-        <App/>
-      </Router>, document.querySelector('#react-root')
-    )
-  }
-})
+module.exports = {
+  BASE_URL: 'https://squirrel.chat/developers',
+  BASE_PATH: '/developers'
+}

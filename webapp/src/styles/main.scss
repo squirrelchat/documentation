@@ -55,6 +55,8 @@
   main {
     flex: 1;
     display: flex;
+    overflow-y: auto;
+    max-width: calc(100% - 400px);
   }
 
   a {
@@ -93,4 +95,9 @@
   margin-left: auto;
   margin-right: auto;
   flex-direction: column;
+  width: 100%;
+
+  > h1:first-child {
+    margin-top: 0;
+  }
 }

@@ -26,12 +26,10 @@
 -->
 
 # Page title
-
 ## Title
+text yes **owo** *uwu* __this is underlined__ `code`
 
-text yes **owo** *uwu* __this is underlined__
-
-> this is a quote
+> this is a quote,
 > a long quote
 
 >info
@@ -40,13 +38,21 @@ text yes **owo** *uwu* __this is underlined__
 >warn
 > this is a warning block
 
->warn
+>danger
 > this is a danger block
 
 ## Another title
+%% POST /api/v1/pat
 
-POST /api/v1/pat <!-- TBD -->
 Gives a headpat to the server
+
+%% POST /api/v1/pat/{userId}
+
+Same thing but to a specific user ig
+
+%% POST /api/v1/{param1}/test/{param2}/{param2}
+
+I have no idea
 
 ###### Table heading
 | col 1 | col 2 | centered |
@@ -68,3 +74,29 @@ class MyComponent extends React.PureComponent {
   }
 }
 ```
+
+```
+import React from 'react'
+
+class MyComponent extends React.PureComponent {
+  render () {
+    return (
+      <div>
+        I could've done this with a functional component but I just want to test syntax highlight yes
+      </div>
+    )
+  }
+}
+```
+
+ - test 1
+ - test 2
+ - test 3
+
+ - test 1
+ - test 2
+   - test 2.1
+   - test 2.2
+ - test 3
+   1. test 3.1
+   2. test 3.2

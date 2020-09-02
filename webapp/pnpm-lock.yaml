@@ -25,6 +25,7 @@ devDependencies:
   file-loader: 6.0.0_webpack@4.44.1
   friendly-errors-webpack-plugin: 1.7.0_webpack@4.44.1
   image-webpack-loader: 6.0.0
+  marked: 1.1.1
   mini-css-extract-plugin: 0.11.0_webpack@4.44.1
   node-sass: 4.14.1
   nodemon: 2.0.4
@@ -33,6 +34,7 @@ devDependencies:
   raw-loader: 4.0.1_webpack@4.44.1
   react-refresh: 0.8.3
   sass-loader: 10.0.1_node-sass@4.14.1+webpack@4.44.1
+  shiki: 0.2.2
   terser-webpack-plugin: 4.1.0_webpack@4.44.1
   webpack: 4.44.1_7d74d9f6ceb0e540c1e44d9709220c58
   webpack-cli: 3.3.12_webpack@4.44.1
@@ -1364,6 +1366,12 @@ packages:
     optional: true
     resolution:
       integrity: sha512-/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==
+  /builtin-modules/1.1.1:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-Jw8HbFpywC9bZaR9+Uxf46J4iS8=
   /builtin-status-codes/3.0.0:
     dev: true
     resolution:
@@ -2438,6 +2446,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ZIzRpLJrOj7jjP2miAtgqIfmzbxa4ZOr5jJc601zklsfEx9oTzmmj2nVpIPRpNlRTIh8lc1kyViIY7BWSGNmKw==
+  /diff/4.0.2:
+    dev: true
+    engines:
+      node: '>=0.3.1'
+    resolution:
+      integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
   /diffie-hellman/5.0.3:
     dependencies:
       bn.js: 4.11.9
@@ -5379,6 +5393,13 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
+  /marked/1.1.1:
+    dev: true
+    engines:
+      node: '>= 8.16.2'
+    hasBin: true
+    resolution:
+      integrity: sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
   /md5.js/1.3.5:
     dependencies:
       hash-base: 3.1.0
@@ -6097,6 +6118,13 @@ packages:
     dev: true
     resolution:
       integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
+  /onigasm/2.2.4:
+    dependencies:
+      lru-cache: 5.1.1
+      tslint: 5.20.1
+    dev: true
+    resolution:
+      integrity: sha512-BJKxCTsK0mrLh+A6AuNzknxaULZRKM5uywA2goluMLLCjfMm/PTUa0M7oSH1Ltb6CT1oKXn2atHR75Y3JQ0SSg==
   /opn/5.5.0:
     dependencies:
       is-wsl: 1.1.0
@@ -7917,6 +7945,30 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
+  /shiki-languages/0.2.2:
+    dependencies:
+      vscode-textmate: 5.2.0
+    dev: true
+    resolution:
+      integrity: sha512-DJ7yVKf9+9ABrhrqvAuVVGLWjv0DLTD4LBS0V6OoG6jg228kCn5YZ9KY9qCmb0N0hKkvIN8fe4nnX1bPdbvxZA==
+  /shiki-themes/0.2.2_onigasm@2.2.4:
+    dependencies:
+      json5: 2.1.3
+      vscode-textmate: github.com/octref/vscode-textmate/e65aabe2227febda7beaad31dd0fca1228c5ddf3_onigasm@2.2.4
+    dev: true
+    peerDependencies:
+      onigasm: '*'
+    resolution:
+      integrity: sha512-vA9onEHPFIxI+s7ZqelnlpllCIdUK9IVp9Z5rcjvNhyIWJAUXfeEu88xcJJvt6p7YzDZxt16kMZykEzUn6hsqw==
+  /shiki/0.2.2:
+    dependencies:
+      onigasm: 2.2.4
+      shiki-languages: 0.2.2
+      shiki-themes: 0.2.2_onigasm@2.2.4
+      vscode-textmate: 5.2.0
+    dev: true
+    resolution:
+      integrity: sha512-PWC4zuqblefhSmgs7FrU1I5Nuugl+CusH4NMS0Zr2yTZ1yWmggiF4TcOGRDYMq/F7Bf/ZkJMWE589/hiXcDKyw==
   /side-channel/1.0.3:
     dependencies:
       es-abstract: 1.18.0-next.0
@@ -8763,6 +8815,37 @@ packages:
     dev: true
     resolution:
       integrity: sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
+  /tslint/5.20.1:
+    dependencies:
+      '@babel/code-frame': 7.10.4
+      builtin-modules: 1.1.1
+      chalk: 2.4.2
+      commander: 2.20.3
+      diff: 4.0.2
+      glob: 7.1.6
+      js-yaml: 3.14.0
+      minimatch: 3.0.4
+      mkdirp: 0.5.5
+      resolve: 1.17.0
+      semver: 5.7.1
+      tslib: 1.13.0
+      tsutils: 2.29.0
+    dev: true
+    engines:
+      node: '>=4.8.0'
+    hasBin: true
+    peerDependencies:
+      typescript: '>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev'
+    resolution:
+      integrity: sha512-EcMxhzCFt8k+/UP5r8waCf/lzmeSyVlqxqMEDQE7rWYiQky8KpIBz1JAoYXfROHrPZ1XXd43q8yQnULOLiBRQg==
+  /tsutils/2.29.0:
+    dependencies:
+      tslib: 1.13.0
+    dev: true
+    peerDependencies:
+      typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
+    resolution:
+      integrity: sha512-g5JVHCIJwzfISaXpXE1qvNalca5Jwob6FjI4AoPlqMusJ6ftFE7IkkFoMhVLRgK+4Kx3gkzb8UZK5t5yTTvEmA==
   /tty-browserify/0.0.0:
     dev: true
     resolution:
@@ -9051,6 +9134,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
+  /vscode-textmate/5.2.0:
+    dev: true
+    resolution:
+      integrity: sha512-Uw5ooOQxRASHgu6C7GVvUxisKXfSgW4oFlO+aa+PAkgmH89O3CXxEEzNRNtHSqtXFTl0nAC1uYj0GMSH27uwtQ==
   /watchpack-chokidar2/2.0.0:
     dependencies:
       chokidar: 2.1.8
@@ -9402,6 +9489,18 @@ packages:
     optional: true
     resolution:
       integrity: sha1-x+sXyT4RLLEIb6bY5R+wZnt5pfk=
+  github.com/octref/vscode-textmate/e65aabe2227febda7beaad31dd0fca1228c5ddf3_onigasm@2.2.4:
+    dependencies:
+      onigasm: 2.2.4
+    dev: true
+    id: github.com/octref/vscode-textmate/e65aabe2227febda7beaad31dd0fca1228c5ddf3
+    name: vscode-textmate
+    peerDependencies:
+      onigasm: ^2.1.0
+      oniguruma: ^7.0.0
+    resolution:
+      tarball: 'https://codeload.github.com/octref/vscode-textmate/tar.gz/e65aabe2227febda7beaad31dd0fca1228c5ddf3'
+    version: 4.0.1
 specifiers:
   '@babel/core': ^7.11.4
   '@babel/plugin-proposal-object-rest-spread': ^7.11.0
@@ -9423,6 +9522,7 @@ specifiers:
   file-loader: ^6.0.0
   friendly-errors-webpack-plugin: ^1.7.0
   image-webpack-loader: ^6.0.0
+  marked: ^1.1.1
   mini-css-extract-plugin: ^0.11.0
   node-sass: ^4.14.1
   nodemon: ^2.0.4
@@ -9436,6 +9536,7 @@ specifiers:
   react-router: ^5.2.0
   react-router-dom: ^5.2.0
   sass-loader: ^10.0.1
+  shiki: ^0.2.2
   terser-webpack-plugin: ^4.1.0
   webpack: ^4.44.1
   webpack-cli: ^3.3.12
