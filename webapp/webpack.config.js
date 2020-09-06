@@ -56,15 +56,15 @@ const baseConfig = {
     alias: {
       '@components': join(__dirname, 'src', 'components'),
       '@styles': join(__dirname, 'src', 'styles'),
-      '@assets': join(__dirname, 'src', 'assets')
+      '@assets': join(__dirname, 'src', 'assets'),
+      '@docs': join(__dirname, '..', 'docs')
     }
   },
   module: {
     strictExportPresence: true,
     rules: [
       {
-        test: /\.jsx?/,
-        include: src,
+        test: /\.jsx?$/,
         use: [
           {
             loader: 'babel-loader',

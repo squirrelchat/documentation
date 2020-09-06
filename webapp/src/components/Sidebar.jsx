@@ -28,7 +28,9 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
-import { Logo, Atom, Api } from './Icons'
+import * as Icons from './Icons'
+
+import registry from '../registry'
 
 import style from '@styles/sidebar.scss'
 
@@ -37,43 +39,35 @@ const Sidebar = () => {
     <div className={style.wrapper}>
       <div className={style.container}>
         <Link to='/' className={style.logo} aria-label='Squirrel Chat'>
-          <Logo/>
+          <Icons.Logo/>
         </Link>
         <div className={style.contents}>
-          <div className={style.sectionTitle}>
-            <Atom width={32} height={32}/>
-            <span>Getting started</span>
-          </div>
-          <NavLink to='/' activeClassName={style.active} className={style.sectionItem}>Section Item 1</NavLink>
-          <div className={style.sectionItem}>
-            <span>Section Item 2</span>
-          </div>
-          <div className={style.sectionItem}>
-            <span>Section Item 3</span>
-          </div>
-          <div className={style.sectionTitle}>
-            <Api width={32} height={32}/>
-            <span>REST API</span>
-          </div>
-          <div className={style.sectionItem}>
-            <span>Section Item 1</span>
-          </div>
-          <div className={style.sectionItem}>
-            <span>Section Item 2</span>
-          </div>
-          <div className={style.sectionItem}>
-            <span>Section Item 3</span>
-          </div>
+          {registry.map(cat => {
+            const Icon = Icons[cat.icon]
+            return (
+              <React.Fragment key={cat.name}>
+                <div className={style.sectionTitle}>
+                  <Icon width={32} height={32}/>
+                  <span>{cat.name}</span>
+                </div>
+                {cat.items.map(item => (
+                  <NavLink key={item.slug} to={item.slug} activeClassName={style.active} className={style.sectionItem}>
+                    {item.title}
+                  </NavLink>
+                ))}
+              </React.Fragment>
+            )
+          })}
         </div>
         <div className={style.footer}>
           <div>
             Copyright &copy; {new Date().getFullYear()} Squirrel Chat
           </div>
           <div>
-            <a href='/'>Website</a>
+            <a href='https://squirrel.chat/'>Website</a>
             <a rel='noreferrer' target='_blank' href='https://github.com/squirrelchat/documentation'>GitHub</a>
             <a rel='noreferrer' target='_blank' href='https://discord.gg/qAPpZDr'>Discord</a>
-            <a href='/legal'>Legal Notice</a>
+            <a href='https://squirrel.chat/legal'>Legal Notice</a>
           </div>
         </div>
       </div>

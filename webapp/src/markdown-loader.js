@@ -29,13 +29,13 @@ const marked = require('marked')
 const shiki = require('shiki')
 
 const rules = [
-  [ /(\*\*)([^ *][^*]*)\1/g, ([ ,, text ]) => ({ tag: 'b', children: text }) ],
-  [ /(__)([^ _][^_]*)\1/g, ([ ,, text ]) => ({ tag: 'u', children: text }) ],
-  [ /([*_])([^ *_][^*_]*)\1/g, ([ ,, text ]) => ({ tag: 'i', children: text }) ],
-  [ /(~~)([^~]+)\1/g, ([ ,, text ]) => ({ tag: 'del', children: text }) ],
-  [ /(`)([^`]+)\1/g, ([ ,, text ]) => ({ tag: 'code', props: { className: 'inlineCode' }, children: text }) ],
-  [ /!\[([^\]]+)\]\(((?:(?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9-]+\.?)+[^\s<]*)\)/g, ([ , alt, src ]) => ({ tag: 'img', props: { src, alt } }) ],
-  [ /\[([^\]]+)\]\(((?:(?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9-]+\.?)+[^\s<]*)\)/g, ([ , label, link ]) => renderLink(link, label) ],
+  [ /(^|\s)(\*\*)([^ *][^*]*)\2/g, ([ , space1,, text ]) => ([ space1, { tag: 'b', children: renderInline(text) } ]) ],
+  [ /(^|\s)(__)([^ _][^_]*)\2/g, ([ , space1,, text ]) => ([ space1, { tag: 'u', children: renderInline(text) } ]) ],
+  [ /(^|\s)([*_])([^ *_][^*_]*)\2/g, ([ , space1,, text ]) => ([ space1, { tag: 'i', children: renderInline(text) } ]) ],
+  [ /(^|\s)(~~)([^~]+)\2/g, ([ , space1,, text ]) => ([ space1, { tag: 'del', children: renderInline(text) } ]) ],
+  [ /(^|\s)(`)([^`]+)\2/g, ([ , space1,, text ]) => ([ space1, { tag: 'code', props: { className: 'inlineCode' }, children: renderInline(text) } ]) ],
+  [ /!\[([^\]]+)\]\(((?:(?:ftp|https?):\/\/|www\.)?(?:[a-zA-Z0-9-]+\.?)+[^\s<]*)\)/g, ([ , alt, src ]) => ({ tag: 'img', props: { src, alt } }) ],
+  [ /\[([^\]]+)\]\(((?:#|(?:\/|https?:\/\/)[\w\d./?=#%&-]+))\)/g, ([ , label, link ]) => renderLink(link, label) ],
   [ /((?:(?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9-]+\.?)+[^\s<]*)/g, ([ , link ]) => renderLink(link, link) ],
   [ /<br\/?>/g, () => ({ tag: 'br' }) ]
 ]
@@ -66,6 +66,9 @@ function renderInline (content) {
 }
 
 function renderLink (link, label) {
+  if (link.startsWith('/')) {
+    return { tag: 'Link', props: { to: link }, children: label }
+  }
   return { tag: 'a', props: { href: link }, children: label }
 }
 
@@ -113,13 +116,13 @@ function renderList (ordered, items) {
           str += `${tok.text}\n`
           break
         case 'list':
-          parts.push({ tag: 'li', children: str.trim() })
+          parts.push({ tag: 'li', children: renderInline(str.trim()) })
           str = ''
           parts.push(renderList(tok.ordered, tok.items))
           break
       }
     })
-    if (str) parts.push({ tag: 'li', children: str.trim() })
+    if (str) parts.push({ tag: 'li', children: renderInline(str.trim()) })
   })
   return { tag: ordered ? 'ol' : 'ul', props: { className: 'list' }, children: parts }
 }
@@ -215,7 +218,8 @@ async function renderCodeblock (language, code) {
 
 function treeToCode (tree) {
   return tree.map(node => {
-    if (typeof node === 'string') return `"${node.replace(/"/g, '\\"')}"`
+    if (typeof node === 'string') return `"${node.replace(/\n/g, ' ').replace(/"/g, '\\"')}"`
+    if (Array.isArray(node)) return treeToCode(node)
 
     const tag = node.tag[0] === node.tag[0].toUpperCase() ? node.tag : `"${node.tag}"`
     let props = 'null'
@@ -231,47 +235,51 @@ function treeToCode (tree) {
         }).join(',')}}`
     }
 
-    const children = node.children ? (typeof node.children === 'string' ? `"${node.children.replace(/"/g, '\\"')}"` : treeToCode(node.children)) : 'null'
+    const children = node.children ? (typeof node.children === 'string' ? `"${node.children.replace(/\n/g, ' ').replace(/"/g, '\\"')}"` : treeToCode(node.children)) : 'null'
     return `React.createElement(${tag}, ${props}, ${children})`
   }).join(',')
 }
 
-module.exports = function (content) {
+function resolveAll (...modules) {
+  return Promise.all(modules.map(mod => new Promise(resolve => this.resolve(__dirname, mod, (_, m) => resolve(m)))))
+}
+
+module.exports = async function (content) {
   const callback = this.async()
-  this.resolve(__dirname, 'react', async (_, react) => {
-    let code = `const React = require("${react}"); const Icons = require("@components/Icons"); const style = require("@styles/markdown.scss");`
-    code += 'const Document = () => React.createElement("div", { className: style.container },'
+  const [ react, reactRouter ] = await resolveAll.call(this, 'react', 'react-router-dom')
+  let code = `const React = require("${react}"); const { Link } = require("${reactRouter}"); const Icons = require("@components/Icons"); const style = require("@styles/markdown.scss");`
+  code += 'const Document = () => React.createElement("div", { className: style.container },'
 
-    let title
-    const tree = (await Promise.all(
-      marked.lexer(content)
-        .map(node => {
-          switch (node.type) {
-            case 'heading':
-              if (node.depth === 1) title = node.text
-              return renderHeader(node.depth, node.text)
-            case 'paragraph':
-              return node.text.startsWith('%% ')
-                ? renderHttp(node.text)
-                : { tag: 'p', props: { className: 'paragraph' }, children: renderInline(node.text) }
-            case 'list':
-              return renderList(node.ordered, node.items)
-            case 'table':
-              return renderTable(node.header, node.cells, node.align)
-            case 'blockquote': {
-              const quoteText = node.text.split('\n').map(s => s.replace(/[ \n]*<br\/?>[ \n]*/ig, '\n'))
-              return node.raw.startsWith('> ')
-                ? renderBlockQuote(quoteText.join(' '))
-                : renderNote(quoteText.shift().toLowerCase(), quoteText.join(' '))
-            }
-            case 'code':
-              return renderCodeblock(node.lang, node.text)
+  let title
+  const tree = (await Promise.all(
+    marked.lexer(content)
+      .map(node => {
+        switch (node.type) {
+          case 'heading':
+            if (node.depth === 1) title = node.text
+            return renderHeader(node.depth, node.text)
+          case 'paragraph':
+            return node.text.startsWith('%% ')
+              ? renderHttp(node.text)
+              : { tag: 'p', props: { className: 'paragraph' }, children: renderInline(node.text) }
+          case 'list':
+            return renderList(node.ordered, node.items)
+          case 'table':
+            return renderTable(node.header, node.cells, node.align)
+          case 'blockquote': {
+            const quoteText = node.text.split('\n').map(s => s.replace(/[ \n]*<br\/?>[ \n]*/ig, '\n'))
+            return node.raw.startsWith('> ')
+              ? renderBlockQuote(quoteText.join(' '))
+              : renderNote(quoteText.shift().toLowerCase(), quoteText.join(' '))
           }
-        })
-    )).filter(Boolean)
+          case 'code':
+            return renderCodeblock(node.lang, node.text)
+        }
+      })
+  )).filter(Boolean)
 
-    code += `${treeToCode(tree)}); Document.displayName = "MarkdownDocument(${title.replace(/ ./g, s => s.substring(1).toUpperCase())})";`
-    code += `module.exports = { __esModule: true, default: React.memo(Document), title: "${title}" }`
-    callback(null, code)
-  })
+  const slug = title.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-')
+  code += `${treeToCode(tree)}); Document.displayName = "MarkdownDocument(${title.replace(/ ./g, s => s.substring(1).toUpperCase())})";`
+  code += `module.exports = { Document: React.memo(Document), title: "${title}", slug: "${slug}" }`
+  callback(null, code)
 }

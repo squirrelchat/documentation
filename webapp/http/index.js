@@ -32,6 +32,7 @@ const ReactDOMServer = require('react-dom/server')
 // Component
 const { Helmet } = require('react-helmet')
 const { StaticRouter } = require('react-router')
+const { BASE_PATH } = require('../src/constants')
 
 // Others
 // noinspection JSFileReferences
@@ -50,7 +51,7 @@ require('http')
     // noinspection JSFileReferences
     const App = require('./dist/App').default
     const rendered = React.createElement(
-      StaticRouter, { location: req.url, basename: '/developers', context }, React.createElement(App, { server: true })
+      StaticRouter, { location: req.url, basename: BASE_PATH, context }, React.createElement(App, { server: true })
     )
 
     if (context.url) {

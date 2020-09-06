@@ -1,4 +1,4 @@
-/*!
+/*
  * Copyright (c) 2020 Squirrel Chat, All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,101 +25,17 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@import './vars';
+const requireAll = (ctx) => ctx.keys().map(k => ctx(k))
 
-.wrapper {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  max-width: 400px;
-  background-color: $dark-primary;
-  --scrollbar-bg: #{$dark-primary};
-  --scrollbar-color: #{$dark-highlight};
-}
-
-.container {
-  width: 100%;
-  height: 100%;
-  padding: 24px;
-  margin-left: auto;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.logo {
-  color: $primary;
-  display: flex;
-  height: 40px;
-
-  svg {
-    width: 184px;
-    user-select: none;
-
-    use {
-      width: 100%;
-    }
+module.exports = [
+  {
+    icon: 'Atom',
+    name: 'Getting Started',
+    items: requireAll(require.context('@docs/getting-started'))
+  },
+  {
+    icon: 'Api',
+    name: 'REST API',
+    items: requireAll(require.context('@docs/rest-api'))
   }
-}
-
-.contents {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 24px 8px;
-}
-
-.section-title {
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  font-size: 18px;
-  margin-bottom: 8px;
-
-  span {
-    margin: 0 16px;
-    flex: 1;
-  }
-
-  &:not(:first-child) {
-    margin-top: 16px;
-  }
-}
-
-.section-item {
-  display: flex;
-  align-items: center;
-  padding: 4px 8px;
-  margin-bottom: 8px;
-  border-radius: 4px;
-  margin-left: 16px;
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: darken($dark-secondary, 4);
-    text-decoration: none;
-  }
-
-  &.active {
-    background-color: $dark-secondary;
-  }
-}
-
-.footer {
-  color: $text-grey;
-  font-size: 14px;
-
-  div {
-    margin-top: 4px;
-  }
-
-  a {
-    color: inherit;
-
-    + a {
-      margin-left: 16px;
-    }
-  }
-}
+]

@@ -27,5 +27,5 @@
 
 module.exports = {
   BASE_URL: 'https://squirrel.chat/developers',
-  BASE_PATH: '/developers'
+  BASE_PATH: process.env.NODE_ENV === 'production' ? '/developers' : ''
 }

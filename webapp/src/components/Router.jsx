@@ -26,12 +26,20 @@
  */
 
 import React from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
-import TestDocument from '../../../docs/test.md'
+import registry from '../registry'
 
 const Router = () => {
   return (
-    <TestDocument/>
+    <Switch>
+      {registry.map(cat => cat.items.map(item => (
+        <Route path={`/${item.slug}`} exact><item.Document/></Route>
+      )))}
+      <Route path='/' exact>
+        <Redirect to='/introduction'/>
+      </Route>
+    </Switch>
   )
 }
 

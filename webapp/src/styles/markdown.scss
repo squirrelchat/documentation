@@ -48,7 +48,12 @@
 }
 
 .heading {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+
+  &:not(h1):not(h1 > h2) {
+    margin-top: 16px;
+  }
 }
 
 .block-header {
@@ -121,6 +126,11 @@
 
   .icon {
     margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  > div {
+    margin: 5px 0;
   }
 
   &.note-info .icon {
@@ -167,6 +177,8 @@
     @extend th;
     opacity: 1;
     text-transform: none;
+    font-weight: normal;
+    font-size: 14px;
   }
 
   .center {
