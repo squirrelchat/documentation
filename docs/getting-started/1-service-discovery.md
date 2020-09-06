@@ -77,5 +77,6 @@ Notes:
  - If remote auth is disabled, the remote auth endpoint will not be provided.
  - Both Wind and Leaf are optional microservices in the Squirrel infrastructure. Their endpoints may be missing.
  - The environment mode can be anything, with the exception for a production server which must always be `production`.
+ - The Sentry DSN may be omitted. It's not required to have error reporting.
  - If payments are disabled, Stripe and PayPal keys will not be provided.
  - If payments are enabled, only one key may be present. It's not required to have both payment processors enabled.

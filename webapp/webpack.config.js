@@ -243,7 +243,7 @@ if (isDev) {
       minimize: false
     },
     target: 'node',
-    externals: [ require('webpack-node-externals')({ allowlist: [ 'object-assign' ] }) ],
+    externals: Object.keys(require('./package.json').dependencies),
     node: {
       __dirname: false,
       __filename: false
