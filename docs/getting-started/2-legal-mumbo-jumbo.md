@@ -48,7 +48,7 @@ their date of birth during registration to ensure compliance with privacy laws a
 the application if necessary.
 
 Related legal resources:
- - Article 20 of the French law No. 2018-493 relative to protection of personal data, [Loi n° 2018-493, Article 20](https://legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000037085952)
- - Article L.227-24 of the French Penal Code, [Article L.227-24 du Code Pénal](https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000006070719&idArticle=LEGIARTI000006418096)
- - Article 8 of the European General Data Protection Regulation (GDPR), [(EU) 2016/679, Article 8](https://eur-lex.europa.eu/eli/reg/2016/679)
- - US' Children's Online Privacy Protection Act (COPPA), [15 U.S.C. §§ 6502(a)](https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid%3AUSC-prelim-title15-section6502)
+ - Loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés, Article 7-1 ([Légifrance](https://legifrance.gouv.fr/loda/article_lc/LEGIARTI000037087837/2018-06-22))
+ - Article L.227-24 du Code Pénal ([Légifrance](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042193612/2020-08-01))
+ - Article 8 of the European General Data Protection Regulation (GDPR; (EU) 2016/679) ([Europa](https://eur-lex.europa.eu/eli/reg/2016/679))
+ - US' Children's Online Privacy Protection Act (COPPA; 15 U.S.C. §§ 6502(a)) ([United States Code](https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid%3AUSC-prelim-title15-section6502))

@@ -79,14 +79,36 @@ discretion. In this case, you'll always get the `DOB_PRIVACY_LAW` error, even if
 of birth.
 
 ## Email confirmation
+>warn
+> This endpoint must **not** be automated. Internal systems may catch abnormal activity and flag the account for
+> suspicious activity, requiring manual administrator review to unlock the account.
 
 ## Login
 
 ## Multi-factor authentication
+>warn
+> This endpoint must **not** be automated. Internal systems may catch abnormal activity and flag the account for
+> suspicious activity, requiring manual administrator review to unlock the account.
 
 ## Remote authentication
+Remote authentication lets you authenticate a device using an already authenticated one (for example, your phone).
+We'll refer to the device you are authenticating the "New device" and the authenticated device "Trusted device".
+
+Depending on the settings or on the instructions from the Trusted device, the session may be limited (or remote
+auth may not be available). This is useful to quickly login to devices you do not trust without typing your
+password and only have limited access to prevent token hijacking.
+
+### New device side (Part 1)
+### Trusted device side
+### New device side (Part 2)
 
 ## Password reset
+>warn
+> Those endpoints must **not** be automated. Internal systems may catch abnormal activity and flag the account for
+> suspicious activity, requiring manual administrator review to unlock the account.
+
+### Request a reset
+### Execute a reset
 
 ## Logout
 To logout, the client simply drops the token and doesn't do anything more. There is no dedicated procedure to log out
