@@ -92,15 +92,64 @@ of birth.
 
 ## Remote authentication
 Remote authentication lets you authenticate a device using an already authenticated one (for example, your phone).
-We'll refer to the device you are authenticating the "New device" and the authenticated device "Trusted device".
 
-Depending on the settings or on the instructions from the Trusted device, the session may be limited (or remote
-auth may not be available). This is useful to quickly login to devices you do not trust without typing your
-password and only have limited access to prevent token hijacking.
+Depending on the settings or on settings set during the flow, the session may be limited (or remote auth may not be
+available). This is useful to quickly login to devices you do not trust without typing your password and only have
+limited access to prevent damages from token hijacking.
 
-### New device side (Part 1)
-### Trusted device side
-### New device side (Part 2)
+The RA server endpoint can be found using [Service Discovery](/service-discovery). Endpoints shown here are relative to
+this.
+
+### Basics
+Remote authentication works with 2 sides. We'll refer to the device you are authenticating the "New device" and the
+authenticated device "Trusted device".
+
+The New device will interact with a WebSocket, while the Trusted device will interact with a REST API. This is a
+nice balance between the amount of data the new device will receive and to get realtime events from the Trusted device,
+and not using too much power and resources from the Trusted device which can be a phone with limited battery and
+processing power.
+
+### Initialize session
+Side: New device
+
+### Start an authorization flow
+Side: Trusted device
+
+%% POST /authorize
+
+###### Request body
+| Field | Type   | Description         |
+|-------|--------|---------------------|
+| key   | string | The RA session key. |
+
+### Receive initial session details
+Side: New device
+
+### Confirm the authorization
+Side: Trusted device
+
+%% POST /confirm
+
+###### Request body
+| Field | Type   | Description                             |
+|-------|--------|-----------------------------------------|
+| token | string | The confirm token you received earlier. |
+
+#### Canceling the authorization
+If you want to cancel the authorization, it is not recomended to simply let the token expire and drop it.
+You should tell the RA server that you are not willing to finalize the authorization:
+
+%% DELETE /authorization
+
+###### Request body
+| Field | Type   | Description                             |
+|-------|--------|-----------------------------------------|
+| token | string | The confirm token you received earlier. |
+
+Responds with `204 No Content` on success, or with `400 Bad Request` if the token is not provided or invalid.
+
+### Receive token and session information
+Side: New device
 
 ## Password reset
 >warn
