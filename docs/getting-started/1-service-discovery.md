@@ -40,6 +40,10 @@ to know where the API runs, and you'll be able to get a list of all the backend 
 Service Discovery also lets you retrieve the instance configuration and enable or disable feature based on what the
 administrators decided. For example, you can know in advance if a user will be able to register or not.
 
+**Note**: By design, you should **never** hardcode any endpoint other than the API, or expect optional services to be
+enabled. This way, in the event of a configuration change or if you want to re-use your thing on another instance,
+little to no changes will be required and it won't break down because of an unexpected state.
+
 %% GET /service-discovery
 
 ###### Example response

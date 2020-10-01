@@ -35,7 +35,7 @@ const rules = [
   [ /(^|\s)(~~)([^~]+)\2/g, ([ , space1,, text ]) => ([ space1, { tag: 'del', children: renderInline(text) } ]) ],
   [ /(^|\s)(`)([^`]+)\2/g, ([ , space1,, text ]) => ([ space1, { tag: 'code', props: { className: 'inlineCode' }, children: renderInline(text) } ]) ],
   [ /!\[([^\]]+)\]\(((?:(?:ftp|https?):\/\/|www\.)?(?:[a-zA-Z0-9-]+\.?)+[^\s<]*)\)/g, ([ , alt, src ]) => ({ tag: 'img', props: { src, alt } }) ],
-  [ /\[([^\]]+)\]\(((?:#|(?:\/|https?:\/\/)[\w\d./?=#%&-]+))\)/g, ([ , label, link ]) => renderLink(link, label) ],
+  [ /\[([^\]]+)\]\(((?:#[\w\d-]+|(?:\/|https?:\/\/)[\w\d./?=#%&-]+))\)/g, ([ , label, link ]) => renderLink(link, label) ],
   [ /((?:(?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9-]+\.?)+[^\s<]*)/g, ([ , link ]) => renderLink(link, link) ],
   [ /<br\/?>/g, () => ({ tag: 'br' }) ]
 ]

@@ -32,9 +32,11 @@
 > notice. We're not accepting contributions at this time.
 
 ## Generic types
+### Snowflake
+
 ### Generic error
 A generic error is what the API returns in almost all cases when an error occurs. It'll most of the time include a
-message, but it's not necessary.
+message, but it's not necessary. The error code will always be uppercase.
 
 ###### Example
 ```json
@@ -45,6 +47,24 @@ message, but it's not necessary.
 }
 ```
 
+Specific errors you may encounter will be documented per-endpoint. Here are some common errors you can encounter
+throughout the API:
+
+###### Common error codes
+| Code                     | HTTP Status Code | Description                                                                     |
+|--------------------------|------------------|---------------------------------------------------------------------------------|
+| AUTHENTICATION_REQUIRED  | 401              | You must provide an auth token. See [authentication](#authentication).          |
+| AUTHENTICATION_FAILED    | 401              | The token you provided is invalid.                                              |
+| INSUFFICIENT_PERMISSIONS | 403              | You do not have enough permissions to perform this operation.                   |
+| MALFORMED_REQUEST        | 400              | The request body was invalid and couldn't be parsed.                            |
+| RATE_LIMITED             | 429              | You've been rate limited. See [rate limiting](#rate-limiting).                  |
+| OVERLOADED               | 503              | The resource is unavailable due to [overload protection](#overload-protection). |
+| PREMIUM_REQUIRED         | 402              | The operation is reserved to people with an active premium subscription*.       |
+
+## Authentication
+
 ## Rate limiting
+
+### Rate limit buckets
 
 ## Overload protection

@@ -36,7 +36,7 @@ const Router = () => {
       {registry.map(cat => cat.items.map(item => (
         <Route path={`/${item.slug}`} exact><item.Document/></Route>
       )))}
-      <Route path='/' exact>
+      <Route>
         <Redirect to='/introduction'/>
       </Route>
     </Switch>

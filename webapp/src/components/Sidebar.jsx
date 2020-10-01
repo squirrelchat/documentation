@@ -38,9 +38,9 @@ const Sidebar = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.container}>
-        <Link to='/' className={style.logo} aria-label='Squirrel Chat'>
+        <div className={style.logo}>
           <Icons.Logo/>
-        </Link>
+        </div>
         <div className={style.contents}>
           {registry.map(cat => {
             const Icon = Icons[cat.icon]
